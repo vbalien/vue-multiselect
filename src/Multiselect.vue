@@ -39,7 +39,7 @@
           :placeholder="placeholder"
           v-if="searchable"
           :style="inputStyle"
-          :value="isOpen ? search : currentOptionLabel"
+          :value="search"
           :disabled="disabled"
           :tabindex="tabindex"
           @input="updateSearch($event.target.value)"

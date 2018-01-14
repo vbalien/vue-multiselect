@@ -490,7 +490,7 @@ export default {
       if (key === 'Tab' && !this.pointerDirty) return
       if (option.isTag) {
         this.$emit('tag', option.label, this.id)
-        this.search = ''
+        // this.search = ''
         if (this.closeOnSelect && !this.multiple) this.deactivate()
       } else {
         const isSelected = this.isSelected(option)
@@ -506,7 +506,7 @@ export default {
         this.$emit('input', this.getValue(), this.id)
 
         /* istanbul ignore else */
-        if (this.clearOnSelect) this.search = ''
+        // if (this.clearOnSelect) this.search = ''
       }
       /* istanbul ignore else */
       if (this.closeOnSelect) this.deactivate()
@@ -570,7 +570,7 @@ export default {
       this.isOpen = true
       /* istanbul ignore else  */
       if (this.searchable) {
-        if (!this.preserveSearch) this.search = ''
+        // if (!this.preserveSearch) this.search = ''
         this.$nextTick(() => this.$refs.search.focus())
       } else {
         this.$el.focus()
@@ -592,7 +592,7 @@ export default {
       } else {
         this.$el.blur()
       }
-      if (!this.preserveSearch) this.search = ''
+      // if (!this.preserveSearch) this.search = ''
       this.$emit('close', this.getValue(), this.id)
     },
     /**
