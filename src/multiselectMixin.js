@@ -15,10 +15,6 @@ function includes (str, query) {
   return text.indexOf(query.trim()) !== -1
 }
 
-function filterOptions (options, search, label, customLabel) {
-  return options.filter(option => includes(customLabel(option, label), search))
-}
-
 function stripGroups (options) {
   return options.filter(option => !option.$isLabel)
 }
@@ -46,7 +42,7 @@ function filterGroups (search, label, values, groupLabel, customLabel) {
         console.warn(`Options passed to vue-multiselect do not contain groups, despite the config.`)
         return []
       }
-      const groupOptions = filterOptions(group[values], search, label, customLabel)
+      const groupOptions = this.filterOptions(group[values], search, label, customLabel)
 
       return groupOptions.length
         ? {
@@ -202,6 +198,12 @@ export default {
         return label ? option[label] : option
       }
     },
+    filterOptions: {
+      type: Function,
+      default (options, search, label, customLabel) {
+        return options.filter(option => includes(customLabel(option, label), search))
+      }
+    },
     /**
      * Disable / Enable tagging
      * @default false
@@ -314,7 +316,7 @@ export default {
       if (this.internalSearch) {
         options = this.groupValues
           ? this.filterAndFlat(options, normalizedSearch, this.label)
-          : filterOptions(options, normalizedSearch, this.label, this.customLabel)
+          : this.filterOptions(options, normalizedSearch, this.label, this.customLabel)
       } else {
         options = this.groupValues ? flattenOptions(this.groupValues, this.groupLabel)(options) : options
       }
